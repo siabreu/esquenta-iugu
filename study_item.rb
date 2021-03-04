@@ -25,7 +25,7 @@ class StudyItem
         new(title: title, category: category)   
     end
 
-    def self.all
+    def self.all        
         @@study_items
     end
 
@@ -35,9 +35,16 @@ class StudyItem
         end
     end
 
-    # def self.print
-
-    # end
+    def self.delete         
+        puts '======== LISTA DE ITENS ========'
+        puts all
+        puts "\nQual o id do Item de estudo você quer apagar?"
+        id = gets.to_i  
+        study_item = self.all.detect do |item| 
+            item.id == id 
+        end
+        self.all.delete(study_item)
+    end
 
     def to_s 
         "##{id} - #{title} - #{category}"
