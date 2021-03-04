@@ -1,4 +1,7 @@
 require_relative 'study_item'
+require 'colorize'
+
+String.disable_colorization false   # enable colorization
 
 REGISTER = 1
 VIEW = 2
@@ -22,7 +25,7 @@ def wait_keypress_clear
 end
 
 def welcome
-    'Bem-vindo ao Diário de Estudos, seu companheiro para estudar!'
+    'Bem-vindo ao Diário de Estudos, seu companheiro para estudar!'.colorize(:yellow).on_light_blue
 end
   
 def menu    
@@ -37,7 +40,7 @@ end
 
 def print_items
     puts StudyItem.all
-    puts 'Nenhum item encontrado' if StudyItem.all.empty?    
+    puts 'Nenhum item encontrado'.colorize(:red)   if StudyItem.all.empty?    
 end
 
 def search_items
@@ -45,7 +48,7 @@ def search_items
     term = gets.chomp    
     items = StudyItem.search(term)
     if items.empty? 
-        puts 'Nenhum item encontrado'
+        puts 'Nenhum item encontrado'.colorize(:red)
     else
         puts items
     end
@@ -55,7 +58,7 @@ def delete_items
     if StudyItem.delete != nil
         puts 'Item deletado'
     else
-        puts 'Item não cadastrado'
+        puts 'Item não cadastrado'.colorize(:red)
     end    
 end
 
@@ -75,12 +78,13 @@ loop do
     when DELETE
         delete_items
     when EXIT        
-        puts 'Obrigado por usar o Diário de Estudos'  
+        puts 'Obrigado por usar o Diário de Estudos'.colorize(:yellow)  
         wait_keypress_clear
         break
     else
-        puts 'Opção inválida'
+        puts 'Opção inválida'.colorize(:red)
     end   
     wait_keypress_clear
+puts welcome
 option = menu
 end
